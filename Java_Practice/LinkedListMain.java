@@ -60,6 +60,112 @@ class Linked_List{
         newNode.next=temp.next;
         temp.next=newNode;
     }
+
+
+    void deleteAtPosition(int pos){
+
+        if(pos==0){
+            head=head.next;
+            return;
+        }
+
+        if(head==null){
+            System.err.println("List is Empty");
+            return;
+        }
+        Node temp=head;
+        Node prev=null;
+
+        for(int i=1;i<=pos;i++){
+            prev=temp;
+            temp=temp.next;
+        }
+
+        prev.next=temp.next;
+    }
+
+    void insertAtEnd(int val){
+        Node newnode=new Node(val);
+
+        if(head==null){
+            head=newnode;
+        }else{
+            Node temp=head;
+
+            while (temp.next != null) {
+                temp=temp.next;
+            }
+
+            temp.next=newnode;
+        }
+
+
+    }
+
+    void deleteAtEnd(){
+        if(head==null){
+            System.out.println("List is Empty!!!");
+            return;
+        }
+
+        if(head.next==null){
+            head=null;
+            return;
+        }
+
+        Node temp=head;
+        Node prev=null;
+
+        while (temp.next != null) {
+            prev=temp;
+            temp=temp.next;
+        }
+
+        prev.next=null;
+    }
+
+    void updateAvalueInaPosition(int pos, int val){
+        if(head==null){
+            System.out.println("List is Empty!!!");
+            return;
+        }
+
+        Node temp=head;
+
+        for(int i=1; i<=pos; i++){
+            if(temp.next==null){
+                System.out.println("List is OutofBound!!!");
+                return;
+            }
+
+            temp=temp.next;
+        }
+
+        temp.data=val;
+    }
+
+    void searchAnElement(int val){
+        if(head==null){
+            System.out.println("List is Empty!!!");
+            return;
+        }
+
+
+        Node temp=head;
+        int idx=0;
+
+        while(temp != null){
+            if(temp.data==val){
+                System.out.println("Element "+val+" is found in index "+idx+" .");
+                return;
+            }
+            temp=temp.next;
+            idx++;
+        }
+
+        System.out.println("Element "+val+" is not found in any index!!");
+
+    }
 }
 
 
@@ -71,7 +177,7 @@ public class LinkedListMain {
         Linked_List list=new Linked_List();
 
         while(true){
-            System.out.println("\n1. Insert at Beginning\n2. Insert at Position\n3. Display\n4. Exit");
+            System.out.println("\n1. Insert at Beginning\n2. Insert at Position\n3. Delete at Position\n4. Insert at end\n5. Delete at the End\n6. Upadate the Value in a Position\n7. Search an Element with index\n8. Display\n9. Exit");
             System.out.println("Enter Your Choice");
             int choice = sc.nextInt();
 
@@ -89,13 +195,45 @@ public class LinkedListMain {
                     int value = sc.nextInt();
                     list.insertAtPosition(pos, value);
                     break;
-
+                
                 case 3:
+                    System.out.print("Enter the position: ");
+                    int p = sc.nextInt();
+                    list.deleteAtPosition(p);
+                    break;
+
+                case 4:
+                    System.out.print("Enter the Value: ");
+                    int v = sc.nextInt();
+                    list.insertAtEnd(v);
+                    break;
+
+                case 5:
+                    list.deleteAtEnd();
+                    System.out.println("Deleted!! ");
+                    break;
+
+                case 6:
+                    System.out.print("Enter the position: ");
+                    int po = sc.nextInt();
+                    System.out.print("Enter the value: ");
+                    int var = sc.nextInt();
+                    list.updateAvalueInaPosition(po, var);
+                    break;
+
+                case 7:
+                    System.out.print("Enter the value for Search: ");
+                    int ser = sc.nextInt();
+                    list.searchAnElement(ser);
+                    break;
+
+
+                case 8:
                     System.out.println("Linked List: ");
                     list.display();
                     break;
 
-                case 4:
+                case 9:
                     System.out.println("Exiting...");
                     sc.close();
                     return;
