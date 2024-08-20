@@ -83,8 +83,113 @@ class LinkedListOperations{
         // so, we assign the new node to current node
 
         temp.next=newnode;
-        // now, the current node("temp.next") should address the next node 
+        // now, the current node("temp.next") should address the new node 
         // so, current node newnode
+    }
+
+    void deleteAtPosition(int pos){
+        if(head==null){
+            System.err.println("List is Empty!!");
+            return;
+        }
+
+        if(pos==0){
+            head=head.next; // "head.next is the 2nd node this will change the 2nd into head node"
+            return;
+        }
+
+        Node temp=head; // we have to start with head
+        Node prev=null;
+
+        for(int i=1;i<=pos;i++){
+            prev=temp; // we have to keep pevious to connect 2nd next node
+            temp=temp.next; // for jump
+        }
+
+        prev.next = temp.next; // this will connect the pevious node to 2nd next node(it will skip the position node)
+    }
+
+    void insertAtEnd(int val){
+        Node newnode=new Node(val);
+
+        
+
+        if(head==null){
+            head=newnode;
+        }else{
+            Node temp=head;
+
+            while (temp.next != null) {  // Traverse to the last node(because the last node pointer will be null)
+                temp=temp.next;
+            }
+
+            temp.next=newnode; // Set the next of the last node to the new node
+        }
+    }
+
+    void deleteAtEnd(){
+        if(head==null){
+            System.out.println("List is Empty!!");
+            return;
+        }
+
+        if(head.next==null){
+            head=null;
+            System.out.println("One Element is Deleted!!");
+            return;
+        }
+        Node temp=head;
+        Node prev=null;
+        while(temp.next != null){
+            prev=temp;
+            temp=temp.next;
+        }
+
+        prev.next=null; // delete the last element because the last element always be null(so, we set the last element is null)
+    }
+
+    void updateAvalueInaPosition(int pos, int val){
+        if(head==null){
+            System.out.println("List is Empty!!");
+            return;
+        }
+
+        Node temp=head;
+
+        // Traverse to the node at position `pos`
+        for(int i=1; i<=pos; i++){
+
+            // check th elist have only one value
+            if(temp.next==null){
+                System.out.println("List is out of Bound!!");
+                return;
+            }
+
+            temp=temp.next;
+        }
+
+        temp.data=val;   // Update the value of the node at the position `pos`
+
+    
+        
+    }
+
+    void searchAnElement(int val){
+        if(head==null){
+            System.out.println("List is Empty!!");
+            return;
+        }
+
+        Node temp=head;
+        int index=0;
+
+        while(temp != null){
+            if(temp.data == val){
+                System.out.println("Element "+val+" is Found in the index "+index+" .");
+            }
+            temp=temp.next;
+            index++;
+        }
     }
 
 }
@@ -94,10 +199,21 @@ public class LinkedList {
         LinkedListOperations list=new LinkedListOperations();
         list.insertAtBegining(5);
         list.insertAtBegining(7);
-        list.insertAtPosition(1, 2);
-        list.insertAtPosition(0, 9);
-        list.insertAtPosition(4, 4);
-        list.insertAtPosition(7, 1);
+        // list.insertAtPosition(2, 2);
+        // list.insertAtPosition(3, 1);
+        // list.insertAtPosition(4, 0);
+        // list.deleteAtPosition(4);
+        // list.deleteAtPosition(0);
+        // list.deleteAtPosition(1);
+        // list.insertAtEnd(9);
+        // list.insertAtEnd(10);
+        // list.deleteAtEnd();
+        // list.updateAvalueInaPosition(0, 1);
+        // list.updateAvalueInaPosition(0, 2);
+        // list.updateAvalueInaPosition(2, 3);
+        // list.updateAvalueInaPosition(3, 4);
+        list.searchAnElement(5);
+
         list.display();
 
     }
